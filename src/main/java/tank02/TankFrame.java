@@ -16,7 +16,7 @@ public class TankFrame extends Frame {
 //    Dir dir = Dir.DOWN;
 //    //这种内部用的没必要每个对象都初始化一次，而且是外部不用不被改变的值
 //    private static final int SPEED = 1;
-    Tank myTank = new Tank(300,300,Dir.DOWN);
+    Tank myTank = new Tank(300,300,Dir.DOWN,this);
     Bullet bullet = new Bullet(300,300,Dir.UP);
     static final int GAME_WIDTH = 400;
     static final int GAME_HIGHT = 400;
@@ -38,7 +38,7 @@ public class TankFrame extends Frame {
     //解决刷缓冲闪烁问题,游戏概念。
     //画面刷新特别快，但是源码计算逻辑cpu跟不上。
     //比如说一个特高清大图，屏幕是一条条刷新的。
-    //直接在内存创建一个buffer，一次性刷出来。
+    //直接在内存创建一个buffer，一次性从内存刷出到显存。
     //一般做游戏开发这部分都封装到游戏引擎
 
     //内存定一个图片，还没画出来
@@ -108,6 +108,11 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
+
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
+                    break;
+
                 default:
                     break;
             }

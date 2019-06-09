@@ -14,11 +14,13 @@ public class Tank{
     private Dir dir =Dir.DOWN;
     private static final int SPEED = 1;
     private boolean moving = false;
-    public Tank(int x, int y, Dir dir) {
+    private TankFrame tankFrame = null;
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
     //tank最知道怎么画自己，封装设计的思想
     public void paint(Graphics g) {
@@ -50,6 +52,9 @@ public class Tank{
         }
     }
 
+    public void fire() {
+        tankFrame.bullet = new Bullet(this.x, this.y, this.dir);
+    }
     public Dir getDir() {
         return dir;
     }
