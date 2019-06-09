@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
-
         while (true){
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
