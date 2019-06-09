@@ -13,6 +13,8 @@ public class Bullet {
     private static int WIDTH = 5,HIGHT = 5;
     private Dir dir;
     private boolean live = true;
+
+
     TankFrame tf = null;
 
     public Bullet(int x, int y,Dir dir,TankFrame tankFrame) {
@@ -53,4 +55,12 @@ public class Bullet {
         }
 
     }
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
+
 }
