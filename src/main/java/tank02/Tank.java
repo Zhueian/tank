@@ -15,6 +15,9 @@ public class Tank{
     private static final int SPEED = 1;
     private boolean moving = false;
     private TankFrame tankFrame = null;
+    private static final int TANK_WIDTH = 29;
+    private static final int TANK_HIGHT = 29;
+
     public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         super();
         this.x = x;
@@ -26,7 +29,7 @@ public class Tank{
     public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.GREEN);
-        g.fillRect(x,y,30,30);
+        g.fillRect(x,y,TANK_WIDTH,TANK_HIGHT);
         g.setColor(color);
         move();
         //这里有点意思
@@ -53,7 +56,23 @@ public class Tank{
     }
 
     public void fire() {
-        tankFrame.bullet = new Bullet(this.x, this.y, this.dir);
+        switch (dir){
+            case LEFT:
+                tankFrame.bullets.add(new Bullet(this.x, this.y+(TANK_HIGHT/2), this.dir,this.tankFrame));
+                break;
+            case RIGHT:
+                tankFrame.bullets.add(new Bullet(this.x+TANK_WIDTH, y+(TANK_HIGHT/2), this.dir,this.tankFrame));
+                break;
+            case UP:
+                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2), this.y, this.dir,this.tankFrame));
+                break;
+            case DOWN:
+                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2), this.y+TANK_HIGHT, this.dir,this.tankFrame));
+                break;
+            default:break;
+        }
+//         tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir,this.tankFrame));
+//        tankFrame.bullet = new Bullet(this.x, this.y, this.dir);
     }
     public Dir getDir() {
         return dir;

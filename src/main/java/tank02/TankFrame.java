@@ -5,6 +5,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Auther: qiucy
@@ -17,9 +19,10 @@ public class TankFrame extends Frame {
 //    //这种内部用的没必要每个对象都初始化一次，而且是外部不用不被改变的值
 //    private static final int SPEED = 1;
     Tank myTank = new Tank(300,300,Dir.DOWN,this);
-    Bullet bullet = new Bullet(300,300,Dir.UP);
-    static final int GAME_WIDTH = 400;
-    static final int GAME_HIGHT = 400;
+    List<Bullet> bullets = new ArrayList<Bullet>();
+    Bullet bullet = new Bullet(300,300,Dir.UP,this);
+    static final int GAME_WIDTH = 600;
+    static final int GAME_HIGHT = 600;
 
     public TankFrame(){
         this.setSize(GAME_WIDTH,GAME_HIGHT);
@@ -60,9 +63,21 @@ public class TankFrame extends Frame {
     }
     @Override
     public void paint(Graphics g){
+        Color color = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹适量"+bullets.size(),10,60);
+        g.setColor(color);
         myTank.paint(g);
-        bullet.paint(g);
+//        bullet.paint(g);
+        // java.util.ConcurrentModificationException
+//        for (Bullet b: bullets){
+//            b.paint(g);
+//        }
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
     }
+
     class MyKeyListener extends KeyAdapter{
         Boolean bL = false;
         Boolean bU = false;
@@ -109,7 +124,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
 
-                case KeyEvent.VK_CONTROL:
+                case KeyEvent.VK_SPACE:
                     myTank.fire();
                     break;
 
