@@ -14,8 +14,7 @@ public class Tank{
     private static final int SPEED = 1;
     private boolean moving = false;
     private TankFrame tankFrame = null;
-    private static final int TANK_WIDTH = 30;
-    private static final int TANK_HIGHT = 30;
+    public static final int TANK_WIDTH = ResoueceMgr.tankD.getWidth(),TANK_HIGHT=ResoueceMgr.tankD.getHeight();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         super();
@@ -69,21 +68,34 @@ public class Tank{
     }
 
     public void fire() {
-        switch (dir){
-            case LEFT:
-                tankFrame.bullets.add(new Bullet(this.x, this.y+(TANK_HIGHT/2)+3, this.dir,this.tankFrame));
-                break;
-            case RIGHT:
-                tankFrame.bullets.add(new Bullet(this.x+TANK_WIDTH, y+(TANK_HIGHT/2)+3, this.dir,this.tankFrame));
-                break;
-            case UP:
-                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2)+3, this.y, this.dir,this.tankFrame));
-                break;
-            case DOWN:
-                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2)+3, this.y+TANK_HIGHT, this.dir,this.tankFrame));
-                break;
-            default:break;
-        }
+        //TODO 子弹出弹位置优化，
+        // 做一个雷电游戏或者跳一跳，
+        // 子弹坦克再加四个斜线方向，
+        // 加碉堡，
+        // 加地雷，
+        // 加碉堡，
+        // 加墙，
+        // 加不同炮弹威力射速不同，
+        // 加不同坦克移数攻速不同
+        // 微信游戏引擎的碰撞：图形比较复杂动物形状等等而不是几何形状？？
+        int bX = this.x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
+        int bY = this.y+Tank.TANK_HIGHT/2 - Bullet.HIGHT/2;
+        tankFrame.bullets.add(new Bullet(bX,bY,dir,this.tankFrame));
+//        switch (dir){
+//            case LEFT:
+//                tankFrame.bullets.add(new Bullet(this.x, this.y+(TANK_HIGHT/2)+3, this.dir,this.tankFrame));
+//                break;
+//            case RIGHT:
+//                tankFrame.bullets.add(new Bullet(this.x+TANK_WIDTH, y+(TANK_HIGHT/2)+3, this.dir,this.tankFrame));
+//                break;
+//            case UP:
+//                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2)+3, this.y, this.dir,this.tankFrame));
+//                break;
+//            case DOWN:
+//                tankFrame.bullets.add(new Bullet(this.x+(TANK_WIDTH/2)+3, this.y+TANK_HIGHT, this.dir,this.tankFrame));
+//                break;
+//            default:break;
+//        }
     }
     public Dir getDir() {
         return dir;

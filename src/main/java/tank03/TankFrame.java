@@ -14,6 +14,7 @@ import java.util.List;
  * @Description:
  */
 public class TankFrame extends Frame {
+    List<Tank> tanks = new ArrayList<Tank>();
     Tank myTank = new Tank(300,300, Dir.DOWN,this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     Bullet bullet = new Bullet(300,300, Dir.UP,this);
@@ -50,11 +51,14 @@ public class TankFrame extends Frame {
     public void paint(Graphics g){
         Color color = g.getColor();
         g.setColor(Color.white);
-        g.drawString("辞职此刻子弹数量"+bullets.size(),10,60);
+        g.drawString("此时此刻子弹数量："+bullets.size(),10,60);
         g.setColor(color);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+        for (int i = 0;i < tanks.size();i++){
+            tanks.get(i).paint(g);
         }
     }
     class MyKeyListener extends KeyAdapter{
