@@ -17,7 +17,7 @@ public class TankFrame extends Frame {
 //    //这种内部用的没必要每个对象都初始化一次，而且是外部不用不被改变的值
 //    private static final int SPEED = 1;
     Tank myTank = new Tank(300,300,Dir.DOWN);
-
+    Bullet bullet = new Bullet(300,300,Dir.UP);
     public TankFrame(){
         this.setSize(400,400);
         setResizable(false);
@@ -35,12 +35,14 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g){
         myTank.paint(g);
+        bullet.paint(g);
     }
     class MyKeyListener extends KeyAdapter{
         Boolean bL = false;
         Boolean bU = false;
         Boolean bR = false;
         Boolean bD = false;
+        //TODO break去掉，枚举加四个斜线方向。
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
