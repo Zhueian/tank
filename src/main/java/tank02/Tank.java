@@ -22,9 +22,11 @@ public class Tank{
     }
     //tank最知道怎么画自己，封装设计的思想
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.GREEN);
         g.fillRect(x,y,30,30);
+        g.setColor(color);
         move();
-
         //这里有点意思
 //        g.fillRect(x,y,30,30);
     }

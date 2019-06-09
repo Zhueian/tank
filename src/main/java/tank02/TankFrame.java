@@ -18,8 +18,11 @@ public class TankFrame extends Frame {
 //    private static final int SPEED = 1;
     Tank myTank = new Tank(300,300,Dir.DOWN);
     Bullet bullet = new Bullet(300,300,Dir.UP);
+    static final int GAME_WIDTH = 400;
+    static final int GAME_HIGHT = 400;
+
     public TankFrame(){
-        this.setSize(400,400);
+        this.setSize(GAME_WIDTH,GAME_HIGHT);
         setResizable(false);
         setTitle("tank war!");
         setVisible(true);
@@ -31,6 +34,29 @@ public class TankFrame extends Frame {
             }
         });
         addKeyListener(new MyKeyListener());
+    }
+    //解决刷缓冲闪烁问题,游戏概念。
+    //画面刷新特别快，但是源码计算逻辑cpu跟不上。
+    //比如说一个特高清大图，屏幕是一条条刷新的。
+    //直接在内存创建一个buffer，一次性刷出来。
+    //一般做游戏开发这部分都封装到游戏引擎
+
+    //内存定一个图片，还没画出来
+    Image offScreenImage = null;
+    // update() 在 paint() 前调用
+    @Override
+    public void update(Graphics g){
+        //用画笔把背景重新画一遍
+        if (offScreenImage == null) offScreenImage = this.createImage(GAME_WIDTH,GAME_HIGHT);
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color color = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HIGHT);
+        gOffScreen.setColor(color);
+        //tank画画逻辑
+        paint(gOffScreen);
+        //最后画到屏幕
+        g.drawImage(offScreenImage,0,0,null);
     }
     @Override
     public void paint(Graphics g){
