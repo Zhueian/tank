@@ -10,6 +10,25 @@ import java.awt.*;
 
 public class Tank{
     private int x,y;
+
+    private boolean live = true;
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 1;
     private boolean moving = false;
@@ -24,6 +43,7 @@ public class Tank{
         this.tankFrame = tankFrame;
     }
     public void paint(Graphics g) {
+        if (!live) tankFrame.tanks.remove(this);
         //3D游戏引擎就是图片旋转的想GL引擎
         Color color = g.getColor();
 //        g.setColor(Color.GREEN);
@@ -110,5 +130,9 @@ public class Tank{
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void die() {
+        this.live = false;
     }
 }

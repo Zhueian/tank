@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
         for (int i = 0; i < 5; i++) {
+            //TODO tank 死了搞个多线程生产者生产点人机。消费者已经有了
             tankFrame.tanks.add(new Tank(r.nextInt(TankFrame.GAME_WIDTH-Tank.TANK_WIDTH),
                     r.nextInt(TankFrame.GAME_HIGHT-Tank.TANK_HIGHT),Dir.DOWN,tankFrame));
         }

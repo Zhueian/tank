@@ -41,7 +41,7 @@ public class TankFrame extends Frame {
         if (offScreenImage == null) offScreenImage = this.createImage(GAME_WIDTH,GAME_HIGHT);
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color color = gOffScreen.getColor();
-        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.setColor(Color.GREEN);
         gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HIGHT);
         gOffScreen.setColor(color);
         paint(gOffScreen);
@@ -51,7 +51,8 @@ public class TankFrame extends Frame {
     public void paint(Graphics g){
         Color color = g.getColor();
         g.setColor(Color.white);
-        g.drawString("此时此刻子弹数量："+bullets.size(),10,60);
+        g.drawString("此时此刻子弹数量："+bullets.size(),5,40);
+        g.drawString("此时此刻敌人数量："+tanks.size(),5,60);
         g.setColor(color);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
@@ -60,6 +61,12 @@ public class TankFrame extends Frame {
         for (int i = 0;i < tanks.size();i++){
             tanks.get(i).paint(g);
         }
+        for (int i = 0; i < bullets.size(); i++){
+            for (int j = 0;j < tanks.size();j++){
+                bullets.get(i).collideWith(tanks.get(j));
+            }
+        }
+
     }
     class MyKeyListener extends KeyAdapter{
         Boolean bL = false;

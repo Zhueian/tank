@@ -75,4 +75,18 @@ public class Bullet {
         this.live = live;
     }
 
+    public void collideWith(Tank tank) {
+        Rectangle bModel = new Rectangle(x,y,WIDTH,HIGHT);
+        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HIGHT);
+        boolean isCollided = bModel.intersects(tModel);
+        if (isCollided){
+            this.die();
+            tank.die();
+        }
+
+    }
+    //FIXME 子弹连发打中的话画面有点不对劲
+    private void die() {
+        live = false;
+    }
 }
