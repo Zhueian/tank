@@ -1,4 +1,4 @@
-package tank03;
+package tank04;
 
 import java.awt.*;
 
@@ -18,7 +18,6 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-        //没必要线程池了，线程池的创建不仅限线程！
         new Thread(()->{
             new Audio("Audio/explode.wav").play();
         }).start();
