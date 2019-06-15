@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit;
  * @Description:
  */
 public class Main {
+    //TODO 学学kotlin？
+    //TODO 所有动作，背景音乐，图片优化
+    //TODO 发射炮弹，炮管要爆炸和收缩效果
     private static Random r = new Random();
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
@@ -16,6 +19,9 @@ public class Main {
             tankFrame.tanks.add(new Tank(r.nextInt(TankFrame.GAME_WIDTH- Tank.TANK_WIDTH),
                     r.nextInt(TankFrame.GAME_HIGHT- Tank.TANK_HIGHT), Dir.DOWN, Group.BAD,tankFrame));
         }
+        new Thread(()->{
+            new Audio("Audio/war1.wav").loop();
+        }).start();
         while (true){
             try {
                 TimeUnit.MILLISECONDS.sleep(100);

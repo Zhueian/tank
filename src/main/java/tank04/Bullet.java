@@ -8,7 +8,7 @@ import java.awt.*;
  * @Description:
  */
 public class Bullet {
-    private static final int SPEED = 10;
+    private static final int SPEED = 18;
     private int x,y;
     public static int WIDTH = ResoueceMgr.bulletD.getWidth(),HIGHT = ResoueceMgr.bulletD.getHeight();
     private Dir dir;
@@ -90,6 +90,9 @@ public class Bullet {
         if (isCollided){
             this.die();
             tank.die();
+            int eX = tank.getX() + Tank.TANK_HIGHT/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + Tank.TANK_HIGHT/2 - Explode.HIGHT/2;
+            tf.explodes.add(new Explode(eX, eY, tf));
         }
 
     }

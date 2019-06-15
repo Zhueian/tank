@@ -17,9 +17,9 @@ public class TankFrame extends Frame {
     List<Tank> tanks = new ArrayList<Tank>();
     Tank myTank = new Tank(300,300, Dir.DOWN, Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<Bullet>();
-    Explode e = new Explode(100,100,this);
+    List<Explode> explodes = new ArrayList<>();
 
-//    Bullet bullet = new Bullet(300,300, Dir.UP,this);
+//    Explode e = new Explode(100,100,this);
     static final int GAME_WIDTH = 800;
     static final int GAME_HIGHT = 800;
 
@@ -56,6 +56,8 @@ public class TankFrame extends Frame {
         g.drawString("此时此刻子弹数量："+bullets.size(),5,40);
         g.setColor(Color.red);
         g.drawString("此时此刻敌人数量："+tanks.size(),5,60);
+        g.setColor(Color.yellow);
+        g.drawString("此时此刻爆炸数量："+explodes.size(),5,80);
         g.setColor(color);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
@@ -64,12 +66,16 @@ public class TankFrame extends Frame {
         for (int i = 0;i < tanks.size();i++){
             tanks.get(i).paint(g);
         }
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+        //collision detect
         for (int i = 0; i < bullets.size(); i++){
             for (int j = 0;j < tanks.size();j++){
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
-        e.paint(g);
+
     }
     class MyKeyListener extends KeyAdapter{
         Boolean bL = false;

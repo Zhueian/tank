@@ -11,7 +11,7 @@ public class Explode {
     public static int WIDTH = ResoueceMgr.explodes[0].getWidth();
     public static int HIGHT = ResoueceMgr.explodes[0].getHeight();
     private int x,y;
-    private boolean live = true;
+//    private boolean live = true;
     TankFrame tf = null;
 
     public Explode(int x, int y, TankFrame tf) {
@@ -29,6 +29,6 @@ public class Explode {
 
     public void paint(Graphics g){
         g.drawImage(ResoueceMgr.explodes[boomStep++],x,y,null);
-        if (boomStep >= ResoueceMgr.explodes.length) boomStep = 0;
+        if (boomStep >= ResoueceMgr.explodes.length) tf.explodes.remove(this);
     }
 }

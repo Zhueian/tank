@@ -34,7 +34,7 @@ public class Tank{
     }
 
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 1;
+    private static final int SPEED = 4;
     private boolean moving = true;
     private TankFrame tankFrame = null;
     public static final int TANK_WIDTH = ResoueceMgr.tankD.getWidth(),TANK_HIGHT=ResoueceMgr.tankD.getHeight();
@@ -84,8 +84,12 @@ public class Tank{
                 break;
             default:break;
         }
-        //敌人随机
-        if (r.nextInt(10)>8) this.fire();
+        if (this.group == Group.BAD && r.nextInt(50)>47) this.fire();
+        if (this.group==Group.BAD && r.nextInt(100)>93)  randomDir();
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[r.nextInt(4)];
     }
 
     public Group getGroup() {
