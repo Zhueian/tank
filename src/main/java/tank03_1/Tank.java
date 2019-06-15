@@ -1,7 +1,6 @@
-package tank03;
+package tank03_1;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * @Auther: qiucy
@@ -14,43 +13,25 @@ public class Tank{
 
     private boolean live = true;
 
-    private Random r = new Random();
-    private Group group = Group.BAD;
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 1;
-    private boolean moving = true;
+    private boolean moving = false;
     private TankFrame tankFrame = null;
-    public static final int TANK_WIDTH = ResoueceMgr.tankD.getWidth(),TANK_HIGHT=ResoueceMgr.tankD.getHeight();
+    public static final int TANK_WIDTH = ResoueceMgr.tankD.getWidth(),TANK_HIGHT= ResoueceMgr.tankD.getHeight();
 
-    public Tank(int x, int y, Dir dir,Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.group = group;
         this.tankFrame = tankFrame;
     }
     public void paint(Graphics g) {
         if (!live) tankFrame.tanks.remove(this);
         //3D游戏引擎就是图片旋转的想GL引擎
-//        Color color = g.getColor();
+        Color color = g.getColor();
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x,y,TANK_WIDTH,TANK_HIGHT);
 //        g.setColor(color);
@@ -90,16 +71,6 @@ public class Tank{
                 break;
             default:break;
         }
-        //敌人随机
-        if (r.nextInt(10)>8) this.fire();
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
     public void fire() {
@@ -113,9 +84,9 @@ public class Tank{
         // 加不同炮弹威力射速不同，
         // 加不同坦克移数攻速不同
         // 微信游戏引擎的碰撞：图形比较复杂动物形状等等而不是几何形状？？
-        int bX = this.x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
-        int bY = this.y+Tank.TANK_HIGHT/2 - Bullet.HIGHT/2;
-        tankFrame.bullets.add(new Bullet(bX,bY,dir,this.group,this.tankFrame));
+        int bX = this.x+ Tank.TANK_WIDTH/2- Bullet.WIDTH/2;
+        int bY = this.y+ Tank.TANK_HIGHT/2 - Bullet.HIGHT/2;
+        tankFrame.bullets.add(new Bullet(bX,bY,dir,this.tankFrame));
 //        switch (dir){
 //            case LEFT:
 //                tankFrame.bullets.add(new Bullet(this.x, this.y+(TANK_HIGHT/2)+3, this.dir,this.tankFrame));
@@ -132,6 +103,27 @@ public class Tank{
 //            default:break;
 //        }
     }
+
+    public void die() {
+        this.live = false;
+        //FIXME 能解决连发子弹打中敌方tank画面问题吗,或者改变子弹速度和repaint()时间？？
+        if (!live) tankFrame.tanks.remove(this);
+    }
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
     public Dir getDir() {
         return dir;
     }
@@ -145,9 +137,5 @@ public class Tank{
 
     public void setMoving(boolean moving) {
         this.moving = moving;
-    }
-
-    public void die() {
-        this.live = false;
     }
 }

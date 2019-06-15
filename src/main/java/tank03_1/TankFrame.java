@@ -1,4 +1,4 @@
-package tank03;
+package tank03_1;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -15,11 +15,10 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
     List<Tank> tanks = new ArrayList<Tank>();
-    Tank myTank = new Tank(300,300, Dir.DOWN,Group.GOOD,this);
+    Tank myTank = new Tank(300,300, Dir.DOWN,this);
     List<Bullet> bullets = new ArrayList<Bullet>();
-    Explode e = new Explode(100,100,this);
-
-//    Bullet bullet = new Bullet(300,300, Dir.UP,this);
+    Bullet bullet = new Bullet(300,300, Dir.UP,this);
+    Obstacle obstacle = new Obstacle();
     static final int GAME_WIDTH = 800;
     static final int GAME_HIGHT = 800;
 
@@ -43,7 +42,7 @@ public class TankFrame extends Frame {
         if (offScreenImage == null) offScreenImage = this.createImage(GAME_WIDTH,GAME_HIGHT);
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color color = gOffScreen.getColor();
-        gOffScreen.setColor(Color.GREEN);
+        gOffScreen.setColor(Color.ORANGE);
         gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HIGHT);
         gOffScreen.setColor(color);
         paint(gOffScreen);
@@ -57,10 +56,12 @@ public class TankFrame extends Frame {
         g.setColor(Color.red);
         g.drawString("此时此刻敌人数量："+tanks.size(),5,60);
         g.setColor(color);
+        obstacle.paintObstacleGroup(g);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
+        //TODO 随机生成的敌队坦克和障碍物要做碰撞检测
         for (int i = 0;i < tanks.size();i++){
             tanks.get(i).paint(g);
         }
@@ -69,7 +70,7 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
-        e.paint(g);
+
     }
     class MyKeyListener extends KeyAdapter{
         Boolean bL = false;

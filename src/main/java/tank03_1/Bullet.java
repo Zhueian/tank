@@ -1,4 +1,4 @@
-package tank03;
+package tank03_1;
 
 import java.awt.*;
 
@@ -14,26 +14,17 @@ public class Bullet {
     private Dir dir;
     private boolean live = true;
     TankFrame tf = null;
-    private Group group = Group.BAD;
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.group = group;
         this.tf = tankFrame;
     }
     public void paint(Graphics g){
         if (!live){
             tf.bullets.remove(this);
+            //FIXME 能解决连发子弹打中敌方tank画面问题吗,或者改变子弹速度和repaint()时间？？
+            return;
         }
 //        Color color = g.getColor();
 //        g.setColor(Color.RED);
@@ -58,6 +49,9 @@ public class Bullet {
     }
 
     private void move() {
+        //FIXME 能解决连发子弹打中敌方tank画面问题吗,或者改变子弹速度和repaint时间？？
+        if (!live) return;
+
         switch (dir){
             case LEFT:
                 x-=SPEED;
@@ -86,12 +80,9 @@ public class Bullet {
         this.live = live;
     }
 
-    // TODO 坦克之间碰撞检测也会死
     public void collideWith(Tank tank) {
-        if (this.group ==tank.getGroup()) return;
-        //TODO Rectangle 要写成single，记录子弹的位置，GC太频繁
         Rectangle bModel = new Rectangle(x,y,WIDTH,HIGHT);
-        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HIGHT);
+        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HIGHT);
         boolean isCollided = bModel.intersects(tModel);
         if (isCollided){
             this.die();
@@ -99,9 +90,10 @@ public class Bullet {
         }
 
     }
-
     //FIXME 子弹连发打中的话画面有点不对劲
     private void die() {
+        //FIXME 能解决连发子弹打中敌方tank画面问题吗,或者改变子弹速度和repaint()时间？？
+        tf.bullets.remove(this);
         live = false;
     }
 }
