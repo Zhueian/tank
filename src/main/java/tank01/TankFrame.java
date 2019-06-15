@@ -1,6 +1,5 @@
 package tank01;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

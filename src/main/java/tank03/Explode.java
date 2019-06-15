@@ -18,7 +18,10 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-        new Audio("Audio/explode.wav").play();
+        new Thread(()->{
+            new Audio("Audio/explode.wav").play();
+        }).start();
+
     }
 
     private int boomStep = 0;
