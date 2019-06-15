@@ -8,7 +8,7 @@ import java.awt.*;
  * @Description:
  */
 public class Bullet {
-    private static final int SPEED = 18;
+    private static final int SPEED = 5;
     private int x,y;
 
     Rectangle rectangle = new Rectangle();

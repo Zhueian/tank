@@ -36,7 +36,7 @@ public class Tank{
     }
 
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 4;
+    private static final int SPEED = 1;
     private boolean moving = true;
     private TankFrame tankFrame = null;
     public static final int TANK_WIDTH = ResoueceMgr.tankD.getWidth(),TANK_HIGHT=ResoueceMgr.tankD.getHeight();
@@ -97,7 +97,7 @@ public class Tank{
         if (this.group == Group.BAD && r.nextInt(50)>47) this.fire();
         if (this.group==Group.BAD && r.nextInt(100)>93)  randomDir();
         boundCheck();
-        //更新碰撞矩形在边界检测以后
+        //更新碰撞矩形放在边界检测以后更好
         rectangle.x = this.x;
         rectangle.y = this.y;
     }
