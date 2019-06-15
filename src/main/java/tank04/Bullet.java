@@ -10,6 +10,9 @@ import java.awt.*;
 public class Bullet {
     private static final int SPEED = 18;
     private int x,y;
+
+    Rectangle rectangle = new Rectangle();
+
     public static int WIDTH = ResoueceMgr.bulletD.getWidth(),HIGHT = ResoueceMgr.bulletD.getHeight();
     private Dir dir;
     private boolean live = true;
@@ -30,6 +33,11 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HIGHT;
     }
     public void paint(Graphics g){
         if (!live){
@@ -69,6 +77,10 @@ public class Bullet {
                 break;
 //            default:break;
         }
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HIGHT){
             live = false;
         }
@@ -84,9 +96,10 @@ public class Bullet {
 
     public void collideWith(Tank tank) {
         if (this.group ==tank.getGroup()) return;
-        Rectangle bModel = new Rectangle(x,y,WIDTH,HIGHT);
-        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HIGHT);
-        boolean isCollided = bModel.intersects(tModel);
+        //坦克列表为m，子弹列表为n，每重画一次new数量是2mn,很恐怖，反复GC可能会影响游戏体验
+//        Rectangle bModel = new Rectangle(x,y,WIDTH,HIGHT);
+//        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HIGHT);
+        boolean isCollided = rectangle.intersects(tank.rectangle);
         if (isCollided){
             this.die();
             tank.die();

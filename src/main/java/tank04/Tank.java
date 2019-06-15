@@ -17,6 +17,8 @@ public class Tank{
     private Random r = new Random();
     private Group group = Group.BAD;
 
+    Rectangle rectangle = new Rectangle();
+
     public int getX() {
         return x;
     }
@@ -46,6 +48,11 @@ public class Tank{
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = Tank.TANK_WIDTH;
+        rectangle.height = Tank.TANK_HIGHT;
     }
     public void paint(Graphics g) {
         if (!live) tankFrame.tanks.remove(this);
@@ -84,9 +91,15 @@ public class Tank{
                 break;
             default:break;
         }
+
+
+
         if (this.group == Group.BAD && r.nextInt(50)>47) this.fire();
         if (this.group==Group.BAD && r.nextInt(100)>93)  randomDir();
         boundCheck();
+        //更新碰撞矩形在边界检测以后
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundCheck() {
