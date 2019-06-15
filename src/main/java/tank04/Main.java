@@ -12,6 +12,7 @@ public class Main {
     //TODO 学学kotlin？
     //TODO 所有动作，背景音乐，图片优化
     //TODO 发射炮弹，炮管要爆炸和收缩效果
+    //TODO bad1 tank和bad2 tank要交互闪烁
     private static Random r = new Random();
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
