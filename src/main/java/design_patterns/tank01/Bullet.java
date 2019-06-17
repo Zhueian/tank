@@ -1,4 +1,4 @@
-package tank04;
+package design_patterns.tank01;
 
 import java.awt.*;
 
@@ -98,9 +98,6 @@ public class Bullet {
 
     public void collideWith(Tank tank) {
         if (this.group ==tank.getGroup()) return;
-        //坦克列表为m，子弹列表为n，每重画一次new数量是2mn,很恐怖，反复GC可能会影响游戏体验
-//        Rectangle bModel = new Rectangle(x,y,WIDTH,HIGHT);
-//        Rectangle tModel = new Rectangle(tank.getX(),tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HIGHT);
         boolean isCollided = rectangle.intersects(tank.rectangle);
         if (isCollided){
             this.die();

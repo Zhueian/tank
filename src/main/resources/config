@@ -1,2 +1,5 @@
 #初始化敌方坦克数量
 initTankCount=10
+#开火策略
+goodFS=design_patterns.tank01.FourDirFireStrategy
+badFS=design_patterns.tank01.DefaultStrategy
