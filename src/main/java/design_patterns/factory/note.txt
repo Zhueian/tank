@@ -1,0 +1,8 @@
+
+                Factory
+ 1.工厂方法生产一个产品,构建一族产品不方便。
+ 2.抽象工厂生产一族产品，构建单个产品很繁杂。
+ 3.spring-context就是一个大工厂：
+    ApplicationContext context = new ClassPathXmlApplication("bean.xml")，要啥bean管他要就行
+    等同于PropertyMsg
+ 4.springioc 兼顾两者有点，摒弃两者缺点。
