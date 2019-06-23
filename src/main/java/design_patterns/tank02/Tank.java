@@ -9,7 +9,7 @@ import java.util.Random;
  * @Description:
  */
 
-public class Tank{
+public class Tank extends GameObject{
     private int x,y;
 
     private boolean live = true;
@@ -34,6 +34,10 @@ public class Tank{
     public void setY(int y) {
         this.y = y;
     }
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
 
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 1;
@@ -63,7 +67,7 @@ public class Tank{
         else fs = new DefaultFireStrategy();
     }
     public void paint(Graphics g) {
-        if (!live) gm.tanks.remove(this);
+        if (!live) gm.remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(ResoueceMgr.tankL,x,y,null);
@@ -155,5 +159,8 @@ public class Tank{
 
     public void die() {
         this.live = false;
+    }
+    public void stop(){
+        this.moving = false;
     }
 }

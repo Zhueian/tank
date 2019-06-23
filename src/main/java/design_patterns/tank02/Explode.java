@@ -7,7 +7,7 @@ import java.awt.*;
  * @Date: 2019-06-15 15:24
  * @Description:
  */
-public class Explode {
+public class Explode extends GameObject {
     public static int WIDTH = ResoueceMgr.explodes[0].getWidth();
     public static int HIGHT = ResoueceMgr.explodes[0].getHeight();
     private int x,y;
@@ -29,6 +29,6 @@ public class Explode {
 
     public void paint(Graphics g){
         g.drawImage(ResoueceMgr.explodes[boomStep++],x,y,null);
-        if (boomStep >= ResoueceMgr.explodes.length) gm.explodes.remove(this);
+        if (boomStep >= ResoueceMgr.explodes.length) gm.remove(this);
     }
 }

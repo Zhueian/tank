@@ -7,7 +7,7 @@ import java.awt.*;
  * @Date: 2019-06-09 12:47
  * @Description:
  */
-public class Bullet {
+public class Bullet extends GameObject{
     private static final int SPEED = 5;
     private int x,y;
 
@@ -40,11 +40,11 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HIGHT;
 
-        gm.bullets.add(this);
+        gm.add(this);
     }
     public void paint(Graphics g){
         if (!live){
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir){
             case LEFT:
@@ -97,17 +97,18 @@ public class Bullet {
         this.live = live;
     }
 
-    public void collideWith(Tank tank) {
-        if (this.group ==tank.getGroup()) return;
+    public boolean collideWith(Tank tank) {
+        if (this.group ==tank.getGroup()) return false;
         boolean isCollided = rectangle.intersects(tank.rectangle);
         if (isCollided){
             this.die();
             tank.die();
             int eX = tank.getX() + Tank.TANK_HIGHT/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.TANK_HIGHT/2 - Explode.HIGHT/2;
-            gm.explodes.add(new Explode(eX, eY, gm));
+            gm.add(new Explode(eX, eY, gm));
+            return true;
         }
-
+        return false;
     }
 
     private void die() {
