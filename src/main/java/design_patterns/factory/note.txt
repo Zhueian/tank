@@ -6,3 +6,4 @@
     ApplicationContext context = new ClassPathXmlApplication("bean.xml")，要啥bean管他要就行
     等同于PropertyMsg
  4.springioc 兼顾两者有点，摒弃两者缺点。
+ 5.ioc反射不是jdk getClassForName.速度太慢，是直接操作字节码
