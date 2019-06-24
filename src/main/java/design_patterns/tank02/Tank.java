@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class Tank extends GameObject{
     private int x,y;
+    int prevX,prevY;
 
     private boolean live = true;
 
@@ -87,6 +88,8 @@ public class Tank extends GameObject{
     }
 
     private void move() {
+        prevX = x;
+        prevY = y;
         if (!moving) return;
         switch (dir){
             case LEFT:
@@ -162,5 +165,9 @@ public class Tank extends GameObject{
     }
     public void stop(){
         this.moving = false;
+    }
+    public void back(){
+        x = prevX;
+        y = prevY;
     }
 }
