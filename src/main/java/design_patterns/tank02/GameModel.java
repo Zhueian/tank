@@ -17,15 +17,14 @@ import java.util.Random;
  */
 public class GameModel {
     //TODO 单例改造
-//    private static GameModel gameModel = new GameModel();
-//    private GameModel(){}
-//    public static GameModel getGameModel(){
-//        return gameModel;
-//    }
+    private static GameModel gameModel = new GameModel();
+    public static GameModel getGameModel(){
+        return gameModel;
+    }
     /**
      * gameModel既是门面fcade对外，也是调停者mediator对内
      */
-    Tank myTank = new Tank(300,300, Dir.DOWN, Group.GOOD,this);
+    Tank myTank;
 
 //    List<Bullet> bullets = new ArrayList<Bullet>();
     //    List<Tank> tanks = new ArrayList<Tank>();
@@ -36,13 +35,20 @@ public class GameModel {
 
     private List<GameObject> objects = new ArrayList<>();
 
-    public GameModel() {
+    private GameModel() {
+        myTank = new Tank(300,300, Dir.DOWN, Group.GOOD);
+
         Random r = new Random();
         int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount")+"");
         for (int i = 0; i < initTankCount; i++) {
             add(new Tank(r.nextInt(TankFrame.GAME_WIDTH- Tank.TANK_WIDTH),
-                    r.nextInt(TankFrame.GAME_HIGHT- Tank.TANK_HIGHT), Dir.DOWN, Group.BAD,this));
+                    r.nextInt(TankFrame.GAME_HIGHT- Tank.TANK_HIGHT), Dir.DOWN, Group.BAD));
         }
+        //初始化墙
+        add(new Wall(50,50,90,90));
+        add(new Wall(50,300,500,80));
+        add(new Wall(50,50,600,600));
+        add(new Wall(350,50,50,500));
     }
 
     public void add(GameObject go){this.objects.add(go);}

@@ -11,13 +11,13 @@ public class Bullet extends GameObject{
     private static final int SPEED = 5;
     private int x,y;
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     public static int WIDTH = ResoueceMgr.bulletD.getWidth(),HIGHT = ResoueceMgr.bulletD.getHeight();
     private Dir dir;
     private boolean live = true;
 //    TankFrame tf = null;
-    GameModel gm = null;
+//    GameModel gm = null;
     private Group group = Group.BAD;
 
     public Group getGroup() {
@@ -28,23 +28,25 @@ public class Bullet extends GameObject{
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    //gm单例耦合度又降低一级
+    public Bullet(int x, int y, Dir dir, Group group/*, GameModel gm*/) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
+//        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HIGHT;
 
-        gm.add(this);
+        GameModel.getGameModel().add(this);
     }
     public void paint(Graphics g){
         if (!live){
-            gm.remove(this);
+//            gm.remove(this);
+            GameModel.getGameModel().remove(this);
         }
         switch (dir){
             case LEFT:
@@ -97,21 +99,21 @@ public class Bullet extends GameObject{
         this.live = live;
     }
 
-    public boolean collideWith(Tank tank) {
-        if (this.group ==tank.getGroup()) return false;
-        boolean isCollided = rectangle.intersects(tank.rectangle);
-        if (isCollided){
-            this.die();
-            tank.die();
-            int eX = tank.getX() + Tank.TANK_HIGHT/2 - Explode.WIDTH/2;
-            int eY = tank.getY() + Tank.TANK_HIGHT/2 - Explode.HIGHT/2;
-            gm.add(new Explode(eX, eY, gm));
-            return true;
-        }
-        return false;
-    }
+//    public boolean collideWith(Tank tank) {
+//        if (this.group ==tank.getGroup()) return false;
+//        boolean isCollided = rectangle.intersects(tank.rectangle);
+//        if (isCollided){
+//            this.die();
+//            tank.die();
+//            int eX = tank.getX() + Tank.TANK_HIGHT/2 - Explode.WIDTH/2;
+//            int eY = tank.getY() + Tank.TANK_HIGHT/2 - Explode.HIGHT/2;
+//            gm.add(new Explode(eX, eY, gm));
+//            return true;
+//        }
+//        return false;
+//    }
 
-    private void die() {
+    public void die() {
         live = false;
     }
 }

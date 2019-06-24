@@ -13,11 +13,10 @@ public class Explode extends GameObject {
     private int x,y;
 //    private boolean live = true;
 //    TankFrame tf = null;
-    GameModel gm = null;
-    public Explode(int x, int y, GameModel gm) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gm = gm;
+       GameModel.getGameModel().add(this);
         new Thread(()->{
             new Audio("Audio/explode.wav").play();
         }).start();
@@ -26,9 +25,9 @@ public class Explode extends GameObject {
 
     private int boomStep = 0;
 
-
+    @Override
     public void paint(Graphics g){
         g.drawImage(ResoueceMgr.explodes[boomStep++],x,y,null);
-        if (boomStep >= ResoueceMgr.explodes.length) gm.remove(this);
+        if (boomStep >= ResoueceMgr.explodes.length) GameModel.getGameModel().remove(this);
     }
 }

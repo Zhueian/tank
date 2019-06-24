@@ -48,16 +48,16 @@ public class Tank extends GameObject{
 
 //    FireStrategy fs = new DefaultFireStrategy();
     FireStrategy fs;
-    GameModel gm;
+//    GameModel gm;
 //    FireStrategy fs = new FourDirFireStrategy();
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group/*, GameModel gm*/) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
+//        this.gm = gm;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -66,9 +66,11 @@ public class Tank extends GameObject{
 
         if (this.getGroup() == Group.GOOD) fs = new FourDirFireStrategy();
         else fs = new DefaultFireStrategy();
+//        GameModel.getGameModel().add(this);
     }
+    @Override
     public void paint(Graphics g) {
-        if (!live) gm.remove(this);
+        if (!live) GameModel.getGameModel().remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(ResoueceMgr.tankL,x,y,null);
@@ -166,6 +168,7 @@ public class Tank extends GameObject{
     public void stop(){
         this.moving = false;
     }
+    //TODO 初始化就碰撞了会有bug
     public void back(){
         x = prevX;
         y = prevY;
