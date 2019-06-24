@@ -28,7 +28,7 @@ public class ColliderChain implements Collider{
     public boolean collide(GameObject o1, GameObject o2) {
         //第一个链点要是碰撞了，就die了，就没必要走下一个链点了，否则会有不可预知的bug
         for (int i = 0; i < colliders.size(); i++) {
-            if(colliders.get(i).collide(o1,o2)) return false;
+            if(!colliders.get(i).collide(o1,o2)) return false;
         }
         return true;
     }
